@@ -7,7 +7,7 @@ const Home: NextPage = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Learn NextJs | Easy Frotend</title>
+        <title>Learn NextJs | Easy Frontend</title>
         <meta name="description" content="Learn NextJs + Typescript with fun :P" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
