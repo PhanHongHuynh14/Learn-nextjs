@@ -4,6 +4,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import Img from '../assets/image.jpg'
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -23,9 +24,11 @@ const Home: NextPage = () => {
         <title>Learn NextJs | Easy Frontend</title>
         <meta name="description" content="Learn NextJs + Typescript with fun :P" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="stylesheet" href="/Home.module.css" />
       </Head>
 
-      <main className={styles.main}>
+      <main className={styles.main}> 
+      <Image  src={Img} alt="" />
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
@@ -90,3 +93,4 @@ const Home: NextPage = () => {
 }
 
 export default Home
+
