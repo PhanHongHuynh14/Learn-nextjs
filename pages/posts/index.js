@@ -1,6 +1,6 @@
 import Card from "react-bootstrap/Card";
 import Layout from "../../components/Layout";
-import { getPosts } from "../../lib/posts.js";
+import { getAllPostIds } from '../../lib/posts.js';
 import Link from 'next/link';
 
 const Posts = ({ posts }) => {
@@ -25,7 +25,7 @@ const Posts = ({ posts }) => {
 // Get static data from backend /db /api
 // Lay du lieu tinh
 export const getStaticProps = async () => {
-    const posts = await getPosts(10)
+    const posts = await getAllPostIds()
     return {
         props:{
             posts: posts

@@ -1,51 +1,72 @@
 import React from 'react'
-import { getPostIds } from '../../lib/posts'
+import { getAllPostIds } from '../../lib/posts.js';
+import { getAllPostIds, getPostData } from '../../lib/posts.js';
 
-const Post = ( post) => {
-    const router = useRouter()
-    if (router.isFallback) {
-		return (
-			<Spinner
-				animation='border'
-				role='status'
-				variant='dark'
-				className={spinnerStyles.spinnerLg}
-			>
-				<span className='sr-only'>LOADING ....</span>
-			</Spinner>
-		)
-	}
-  return (
+
+
+const Post = ( postData) => {
     <Layout>
 			<Card className='my-3 shadow'>
 				<Card.Body>
-					<Card.Title>{post.title}</Card.Title>
-					<Card.Text>{post.body}</Card.Text>
+					<Card.Title>{postData.title}</Card.Title>
+					<Card.Text>{postData.body}</Card.Text>
 					<Link href='/posts'>
 						<Button variant='dark'>Back</Button>
 					</Link>
 				</Card.Body>
 			</Card>
 		</Layout>
-  )
 }
+export function getAllPostIds() {
+    const fileNames = fs.readdirSync(postsDirectory);
+  
+    // Returns an array that looks like this:
+    // [
+    //   {
+    //     params: {
+    //       id: 'ssg-ssr'
+    //     }
+    //   },
+    //   {
+    //     params: {
+    //       id: 'pre-rendering'
+    //     }
+    //   }
+    // ]
+    return fileNames.map((fileName) => {
+      return {
+        params: {
+          id: fileName.replace(/\.md$/, ''),
+        },
+      };
+    });
+  }
 
 export const getStaticPaths = async () => {
 	const paths = await getPostIds()
-	console.log(paths)
     return {
         paths,
-        fallback: true
+        fallback: false,
     }
 }
-export const getStaticProps = async ({ params }) => {
-	const post = await getPostById(params.id)
+export async function getStaticProps({ params }) {
+    const postData = getPostData(params.id);
+    return {
+      props: {
+        postData,
+      },
+    };
+  }
 
-	return {
-		props: {
-			post
-		},
-		revalidate: 1
-	}
-}
+// export const getStaticProps = async ({ params }) => {
+// 	const post = await getPostById(params.id)
+
+// 	return {
+// 		props: {
+// 			post
+// 		},
+// 		revalidate: 1
+// 	}
+// }
+
 export default Post
